@@ -14,7 +14,6 @@ c4 = input('country4').capitalize()
 if len(c4) == 2: c4 = c4.upper()
 
 df = pd.read_csv('https://raw.githubusercontent.com/datasets/covid-19/master/data/countries-aggregated.csv', parse_dates=['Date'])
-# countries = ['Russia', 'Ukraine', 'Belarus',]
 countries = [c1, c2, c3, c4]
 df = df[df['Country'].isin(countries)]
 
@@ -25,14 +24,14 @@ covid = df.reset_index('Date')
 covid.set_index(['Date'], inplace=True)
 covid.columns = countries
 
-populations = {'Canada':37664517, 'Germany': 83721496 , 'United Kingdom': 67802690 ,
-               'US': 330548815, 'France': 65239883, 'China':1438027228, 'Russia': 146877088 , 'Ukraine': 41688482 , 'Belarus': 9450000}
+populations = {'Canada': 37664517, 'Germany': 83721496 , 'United Kingdom': 67802690 , 'Afghanistan': 37466414,
+               'Japan': 126500000, 'US': 330548815, 'France': 65239883, 'China': 1438027228, 'Russia': 146877088,
+               'Ukraine': 41688482, 'Belarus': 9450000}
 
 num = covid.copy()
 for country in list(num.columns):
     num[country] = num[country]/populations[country] * 100000
 
-# colors = {'Belarus':'#006E4A', 'Russia':'#291ABB', 'Ukraine':'#FFD301'}
 colors = {c1: '#045275', c2: '#089099', c3: '#7CCBA2', c4: '#FCDE9C'}
 plt.style.use('fivethirtyeight')
 
