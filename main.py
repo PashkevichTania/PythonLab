@@ -4,21 +4,26 @@ from matplotlib.dates import DateFormatter
 import matplotlib.ticker as ticker
 
 
-c1 = input('country1').capitalize()
-if len(c1) == 2: c1 = c1.upper()
-c2 = input('country2').capitalize()
-if len(c2) == 2: c2 = c2.upper()
-c3 = input('country3').capitalize()
-if len(c3) == 2: c3 = c3.upper()
-c4 = input('country4').capitalize()
-if len(c4) == 2: c4 = c4.upper()
+# c1 = input('country1').capitalize()
+# if len(c1) == 2: c1 = c1.upper()
+# c2 = input('country2').capitalize()
+# if len(c2) == 2: c2 = c2.upper()
+# c3 = input('country3').capitalize()
+# if len(c3) == 2: c3 = c3.upper()
+# c4 = input('country4').capitalize()
+# if len(c4) == 2: c4 = c4.upper()
+c1 ='Russia'
+c2 ='US'
+c3 ='German'
+c4 ='France'
 
-df = pd.read_csv('https://raw.githubusercontent.com/datasets/covid-19/master/data/countries-aggregated.csv', parse_dates=['Date'])
+# https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2FCSSEGISandData%2FCOVID-19%2Fmaster%2Fcsse_covid_19_data%2Fcsse_covid_19_time_series%2Ftime_series_covid19_confirmed_global.csv&filename=time_series_covid19_confirmed_global.csv
+df = pd.read_csv('https://data.humdata.org/hxlproxy/api/data-preview.csv?url=https%3A%2F%2Fraw.githubusercontent.com%2FCSSEGISandData%2FCOVID-19%2Fmaster%2Fcsse_covid_19_data%2Fcsse_covid_19_time_series%2Ftime_series_covid19_confirmed_global.csv&filename=time_series_covid19_confirmed_global.csv')
 countries = [c1, c2, c3, c4]
-df = df[df['Country'].isin(countries)]
+df = df[df['Country/Region'].isin(countries)]
 
-df['Cases'] = df[['Confirmed']].sum(axis=1)
-df = df.pivot(index='Date', columns='Country', values='Cases')
+
+df = df.pivot(index='Date', columns='Country/Region', values='Cases')
 countries = list(df.columns)
 covid = df.reset_index('Date')
 covid.set_index(['Date'], inplace=True)
