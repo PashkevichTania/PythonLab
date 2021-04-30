@@ -6,10 +6,10 @@ import re
 
 site = 'https://www.imdb.com'
 
-resp = requests.get(site + "/name/nm0331516/")
+resp = requests.get(site + "/name/nm0731075/")
 soup = BeautifulSoup(resp.text, 'html.parser')
 
-writer_id_re = re.compile("^actor-tt")
+writer_id_re = re.compile("^actress-tt")
 rating = 'ratingValue'
 
 films = {"year": [], "name": [], "rating": []}
